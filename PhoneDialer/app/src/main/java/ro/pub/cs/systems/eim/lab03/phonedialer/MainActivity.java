@@ -6,13 +6,16 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -44,8 +47,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        WindowManager windowManager = getWindowManager();
+        Display display = windowManager.getDefaultDisplay();
+        if (display.getWidth() <= display.getHeight()) {
+            // create graphic user interface for portrait mode
+            setContentView(R.layout.activity_main);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            Log.d("TAG", "portrait");
+        }
+        else {
+            // create graphic user interface for landscape mode
+            setContentView(R.layout.activity_phone_dialer);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            Log.d("TAG", "Landscape");
+        }
+
         final Intent[] call = {new Intent()};
-        setContentView(R.layout.activity_main);
+
         TextView phoneNumber = (TextView) findViewById(R.id.textViewPhoneNumber);
         Button zeroButton = (Button)findViewById(R.id.buttonZero);
         zeroButton.setOnClickListener(buttonClickListener);
