@@ -186,6 +186,16 @@
                 app:srcCompat="@drawable/hangup" />
 
             <ImageButton
+                android:id="@+id/imageButtonContacts"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_gravity="left"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                app:layout_constraintStart_toEndOf="@+id/imageButton2"
+                app:srcCompat="@drawable/contacts" />
+
+            <ImageButton
                 android:id="@+id/imageButtonCall"
                 android:layout_width="0dp"
                 android:layout_height="64dp"

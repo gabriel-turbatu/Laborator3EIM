@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private ButtonClickListener buttonClickListener = new ButtonClickListener();
@@ -113,6 +114,22 @@ public class MainActivity extends AppCompatActivity {
                     intent.setData(Uri.parse("tel:" + phoneNumber.getText().toString()));
                     call[0] = intent;
                     startActivity(intent);
+                }
+            }
+        });
+
+        ImageButton contactButton = (ImageButton)findViewById(R.id.imageButtonContacts);
+        contactButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneString = phoneNumber.getText().toString();
+                if (phoneString.length() > 0) {
+                    Intent intent = new Intent("ro.pub.cs.systems.eim.lab04.contactsmanager.intent.action.MainActivity");
+                    intent.putExtra("ro.pub.cs.systems.eim.lab04.contactsmanager.PHONE_NUMBER_KEY", phoneString);
+                    startActivityForResult(intent, Constants.CONTACTS_MANAGER_REQUEST_CODE);
+                }
+                else {
+                    Toast.makeText(getApplication(), "PHONE ERROR", Toast.LENGTH_LONG).show();
                 }
             }
         });
